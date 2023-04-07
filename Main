@@ -1,0 +1,204 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Player = game.Players.LocalPlayer
+local Window = OrionLib:MakeWindow({Name = "KeySystem", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest", IntroEnabled = false})
+
+OrionLib:MakeNotification({
+	Name = "Logged in!",
+	Content = "You are logged in as "..Player.Name..".",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+_G.Key = "fd6g7az7"
+_G.KeyInput = "string"
+function MakeScriptHub()
+     local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+    local Window = OrionLib:MakeWindow({Name = "Challenge Hub", HidePremium = false, SaveConfig = true, IntroEnabled = "False", IntroText = "Challenge Hub", ConfigFolder = "OrionTest"})
+    
+    -- Values
+    _G.autoTap = true
+    _G.autoRebirth = true
+    _G.autoHatch = true
+    _G.selectEgg = "Basic Egg"
+    -- Functions
+    function autoTap()
+        while _G.autoTap == true do
+            game:GetService("ReplicatedStorage").Remotes.Tap:FireServer()
+            wait(0.000000000000000000000000000000000000000000000000000000000000001)
+         end
+        end
+    
+        function autoRebirth()
+            while _G.autoRebirth == true do
+                game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer(15)
+                wait(0.000000000000000000000000000000000000000000000000000000000000001)
+             end
+            end
+    
+            function autoHatch()
+                while _G.autoHatch == true do
+                    game:GetService("ReplicatedStorage").Remotes.BuyEgg:InvokeServer(_G.selectEgg,1)
+                    wait(0.000000000000000000000000000000000000000000000000000000000000001)
+                end
+            end      
+    -- Tabs
+    local FarmTab = Window:MakeTab({
+        Name = "AutoFarm",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+    
+    local EggsTab = Window:MakeTab({
+        Name = "Eggs",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+    
+    local MiscTab = Window:MakeTab({
+        Name = "Misc",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+    -- Toggles
+    FarmTab:AddToggle({
+        Name = "Auto Tap",
+        Default = false,
+        Callback = function(Value)
+            _G.autoTap = Value
+            autoTap()
+        end    
+    })
+    
+    FarmTab:AddToggle({
+        Name = "Auto Rebirth",
+        Default = false,
+        Callback = function(Value)
+            _G.autoRebirth = Value
+            autoRebirth()
+        end    
+    })
+    
+    EggsTab:AddToggle({
+        Name = "Auto Hatch",
+        Default = false,
+        Callback = function(Value)
+            _G.autoHatch = Value
+            autoHatch()
+        end    
+    })
+    
+    -- Drop Downs
+    EggsTab:AddDropdown({
+        Name = "Select Egg",
+        Default = "Basic egg",
+        Options = {"Basic Egg", "Rare Egg", "Forest Egg", "Desert Egg", "Winter Egg", "Lava Egg", "Aqua Egg", "Sakura Egg", "Mine Egg"},
+        Callback = function(Value)
+            _G.selectEgg = Value
+            print(_G.selectEgg)
+            
+        end    
+    })
+    
+    MiscTab:AddButton({
+        Name = "Spawn",
+        Callback = function()
+            game:GetService("ReplicatedStorage").Remotes.TeleportToArea:FireServer(1)
+          end    
+    })
+    
+    MiscTab:AddButton({
+        Name = "Forest",
+        Callback = function()
+            game:GetService("ReplicatedStorage").Remotes.TeleportToArea:FireServer(2)
+          end    
+    })
+    
+    MiscTab:AddButton({
+        Name = "Desert",
+        Callback = function()
+            game:GetService("ReplicatedStorage").Remotes.TeleportToArea:FireServer(3)
+          end    
+    })
+    
+    MiscTab:AddButton({
+        Name = "Winter",
+        Callback = function()
+            game:GetService("ReplicatedStorage").Remotes.TeleportToArea:FireServer(4)
+          end    
+    })
+    
+    MiscTab:AddButton({
+        Name = "Lava",
+        Callback = function()
+            game:GetService("ReplicatedStorage").Remotes.TeleportToArea:FireServer(5)
+          end    
+    })
+
+
+MiscTab:AddButton({
+    Name = "Aqua",
+    Callback = function()
+        game:GetService("ReplicatedStorage").Remotes.TeleportToArea:FireServer(6)
+      end    
+})
+ 
+
+MiscTab:AddButton({
+    Name = "Sakura",
+    Callback = function()
+        game:GetService("ReplicatedStorage").Remotes.TeleportToArea:FireServer(7)
+      end    
+})
+
+MiscTab:AddButton({
+    Name = "Mine",
+    Callback = function()
+        game:GetService("ReplicatedStorage").Remotes.TeleportToArea:FireServer(8)
+      end    
+})
+end
+
+
+function CorrectKeyNotification()
+    OrionLib:MakeNotification({
+        Name = "Correct Key!",
+        Content = "You have entered the correct Key!",
+        Image = "rbxassetid://4483345998",
+        Time = 5
+    })
+end
+
+function IncorrectKeyNotification()
+    OrionLib:MakeNotification({
+        Name = "Incorrect key!",
+        Content = "You have entered the Incorrect key!",
+        Image = "rbxassetid://4483345998",
+        Time = 5
+    })
+end
+local Tab = Window:MakeTab({
+	Name = "Key",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddTextbox({
+	Name = "EnterKey",
+	Default = "EnterKey",
+	TextDisappear = true,
+	Callback = function(Value)
+		_G.KeyInput = Value
+	end	  
+})
+
+Tab:AddButton({
+	Name = "Check Key",
+	Callback = function()
+      	if _G.KeyInput == _G.Key then
+            MakeScriptHub()
+            CorrectKeyNotification()
+        else
+            IncorrectKeyNotification()
+        end
+  	end    
+})
